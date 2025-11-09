@@ -1,0 +1,981 @@
+ <!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portafolio - Facebook Style</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f0f2f5;
+            color: #1c1e21;
+        }
+
+        /* Header */
+        .header {
+            background-color: #ffffff;
+            height: 56px;
+            padding: 0 16px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            color: #1877f2;
+            font-size: 40px;
+            margin-right: 10px;
+        }
+
+        .search-bar {
+            background-color: #f0f2f5;
+            height: 40px;
+            border-radius: 20px;
+            padding: 0 12px;
+            display: flex;
+            align-items: center;
+            width: 240px;
+        }
+
+        .search-bar i {
+            color: #65676b;
+            margin-right: 8px;
+        }
+
+        .search-bar input {
+            background: transparent;
+            border: none;
+            outline: none;
+            font-size: 15px;
+            width: 100%;
+        }
+
+        .header-center {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-icon {
+            width: 129px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 3px solid transparent;
+            color: #65676b;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .header-icon.active {
+            color: #1877f2;
+            border-bottom-color: #1877f2;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .profile-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #e4e6eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: 10px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Main Content */
+        .main-content {
+            display: flex;
+            padding-top: 56px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Left Sidebar */
+        .left-sidebar {
+            width: 360px;
+            padding: 20px 8px 20px 16px;
+            position: sticky;
+            top: 56px;
+            height: calc(100vh - 56px);
+            overflow-y: auto;
+        }
+
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-bottom: 2px;
+        }
+
+        .sidebar-item:hover {
+            background-color: #e4e6eb;
+        }
+
+        .sidebar-item i {
+            width: 36px;
+            height: 36px;
+            background-color: #e4e6eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 18px;
+            color: #1877f2;
+        }
+
+        .sidebar-item img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+
+        .sidebar-item span {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #ced0d4;
+            margin: 16px 0;
+        }
+
+        .shortcuts h3 {
+            font-size: 17px;
+            color: #65676b;
+            margin: 16px 0 8px 8px;
+        }
+
+        /* Feed */
+        .feed {
+            flex: 1;
+            padding: 20px 16px;
+            max-width: 680px;
+        }
+
+        .stories {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+        }
+
+        .story {
+            width: 112px;
+            height: 200px;
+            border-radius: 10px;
+            position: relative;
+            flex-shrink: 0;
+            overflow: hidden;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+
+        .story-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s;
+        }
+
+        .story:hover .story-bg {
+            transform: scale(1.05);
+        }
+
+        .create-story {
+            background-color: #ffffff;
+        }
+
+        .create-story .story-bg {
+            background-color: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 10px;
+        }
+
+        .create-story-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #1877f2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            margin-bottom: 10px;
+            border: 4px solid white;
+        }
+
+        .create-story p {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .story-profile {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 4px solid #1877f2;
+        }
+
+        .story-author {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Create Post */
+        .create-post {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 12px 16px 10px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            margin-bottom: 16px;
+        }
+
+        .post-input {
+            display: flex;
+            align-items: center;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #e4e6eb;
+        }
+
+        .post-input img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .post-input input {
+            flex: 1;
+            height: 40px;
+            background-color: #f0f2f5;
+            border: none;
+            border-radius: 20px;
+            padding: 0 16px;
+            font-size: 17px;
+            outline: none;
+        }
+
+        .post-options {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 10px;
+        }
+
+        .post-option {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .post-option:hover {
+            background-color: #f0f2f5;
+        }
+
+        .post-option i {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+
+        .live-video i {
+            color: #f02849;
+        }
+
+        .photo-video i {
+            color: #45bd62;
+        }
+
+        .feeling i {
+            color: #f7b928;
+        }
+
+        .post-option span {
+            font-size: 15px;
+            font-weight: 500;
+            color: #65676b;
+        }
+
+        /* Posts */
+        .post {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            margin-bottom: 16px;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 12px 16px;
+        }
+
+        .post-header img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        .post-info h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .post-info p {
+            font-size: 13px;
+            color: #65676b;
+        }
+
+        .post-info i {
+            margin-left: 4px;
+        }
+
+        .post-content {
+            padding: 0 16px 12px;
+        }
+
+        .post-text {
+            font-size: 15px;
+            line-height: 1.33;
+            margin-bottom: 10px;
+        }
+
+        .post-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .post-stats {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 16px;
+            border-bottom: 1px solid #e4e6eb;
+            color: #65676b;
+            font-size: 15px;
+        }
+
+        .post-actions {
+            display: flex;
+            justify-content: space-around;
+            padding: 4px 0;
+        }
+
+        .post-action {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 6px 0;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .post-action:hover {
+            background-color: #f0f2f5;
+        }
+
+        .post-action i {
+            font-size: 18px;
+            margin-right: 6px;
+            color: #65676b;
+        }
+
+        .post-action span {
+            font-size: 15px;
+            font-weight: 500;
+            color: #65676b;
+        }
+
+        /* Right Sidebar */
+        .right-sidebar {
+            width: 360px;
+            padding: 20px 16px 20px 8px;
+            position: sticky;
+            top: 56px;
+            height: calc(100vh - 56px);
+            overflow-y: auto;
+        }
+
+        .contacts-header {
+            display: flex;
+            justify-content: space-between;
+            padding: 0 8px 12px;
+        }
+
+        .contacts-header h3 {
+            font-size: 17px;
+            color: #65676b;
+        }
+
+        .contacts-header i {
+            color: #65676b;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .contact {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .contact:hover {
+            background-color: #e4e6eb;
+        }
+
+        .contact img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+
+        .contact span {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        /* Portfolio Sections */
+        .portfolio-section {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            margin-bottom: 16px;
+            padding: 16px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2 {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .section-header a {
+            color: #1877f2;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        .skills-list, .projects-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .skill-item, .project-item {
+            display: flex;
+            align-items: center;
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .skill-item:hover, .project-item:hover {
+            background-color: #f0f2f5;
+        }
+
+        .skill-item i, .project-item i {
+            width: 36px;
+            height: 36px;
+            background-color: #e4e6eb;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 18px;
+            color: #1877f2;
+        }
+
+        .skill-info h4, .project-info h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        .skill-info p, .project-info p {
+            font-size: 13px;
+            color: #65676b;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .right-sidebar {
+                display: none;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .left-sidebar {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">
+                <i class="fab fa-facebook"></i>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar en Facebook">
+            </div>
+        </div>
+        <div class="header-center">
+            <div class="header-icon active">
+                <i class="fas fa-home"></i>
+            </div>
+            <div class="header-icon">
+                <i class="fab fa-facebook-messenger"></i>
+            </div>
+            <div class="header-icon">
+                <i class="fas fa-store"></i>
+            </div>
+            <div class="header-icon">
+                <i class="fas fa-users"></i>
+            </div>
+            <div class="header-icon">
+                <i class="fas fa-gamepad"></i>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="profile-icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="profile-icon">
+                <i class="fas fa-comment-dots"></i>
+            </div>
+            <div class="profile-icon">
+                <i class="fas fa-bell"></i>
+            </div>
+            <div class="profile-icon">
+                <i class="fas fa-caret-down"></i>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <!-- Left Sidebar -->
+        <div class="left-sidebar">
+            <div class="sidebar-item">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile">
+                <span>Tu Nombre</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-user-friends"></i>
+                <span>Amigos</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fab fa-facebook-messenger"></i>
+                <span>Messenger</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-flag"></i>
+                <span>Páginas</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-users"></i>
+                <span>Grupos</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-store"></i>
+                <span>Marketplace</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-tv"></i>
+                <span>Watch</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-calendar-week"></i>
+                <span>Eventos</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-clock"></i>
+                <span>Recuerdos</span>
+            </div>
+            <div class="sidebar-item">
+                <i class="fas fa-caret-down"></i>
+                <span>Ver más</span>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="shortcuts">
+                <h3>Tus accesos directos</h3>
+                <div class="sidebar-item">
+                    <img src="https://picsum.photos/100" alt="Shortcut">
+                    <span>Proyecto 1</span>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://picsum.photos/101" alt="Shortcut">
+                    <span>Proyecto 2</span>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://picsum.photos/102" alt="Shortcut">
+                    <span>Proyecto 3</span>
+                </div>
+                <div class="sidebar-item">
+                    <img src="https://picsum.photos/103" alt="Shortcut">
+                    <span>Proyecto 4</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Feed -->
+        <div class="feed">
+            <!-- Stories -->
+            <div class="stories">
+                <div class="story create-story">
+                    <div class="story-bg">
+                        <div class="create-story-icon">
+                            <i class="fas fa-plus"></i>
+                        </div>
+                        <p>Crear story</p>
+                    </div>
+                </div>
+                <div class="story">
+                    <div class="story-bg" style="background-image: url('https://picsum.photos/200/300')"></div>
+                    <img class="story-profile" src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile">
+                    <div class="story-author">María García</div>
+                </div>
+                <div class="story">
+                    <div class="story-bg" style="background-image: url('https://picsum.photos/201/300')"></div>
+                    <img class="story-profile" src="https://randomuser.me/api/portraits/men/22.jpg" alt="Profile">
+                    <div class="story-author">Carlos López</div>
+                </div>
+                <div class="story">
+                    <div class="story-bg" style="background-image: url('https://picsum.photos/202/300')"></div>
+                    <img class="story-profile" src="https://randomuser.me/api/portraits/women/33.jpg" alt="Profile">
+                    <div class="story-author">Ana Martínez</div>
+                </div>
+                <div class="story">
+                    <div class="story-bg" style="background-image: url('https://picsum.photos/203/300')"></div>
+                    <img class="story-profile" src="https://randomuser.me/api/portraits/men/55.jpg" alt="Profile">
+                    <div class="story-author">Juan Pérez</div>
+                </div>
+            </div>
+
+            <!-- Create Post -->
+            <div class="create-post">
+                <div class="post-input">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile">
+                    <input type="text" placeholder="¿Qué estás pensando?">
+                </div>
+                <div class="post-options">
+                    <div class="post-option live-video">
+                        <i class="fas fa-video"></i>
+                        <span>Video en vivo</span>
+                    </div>
+                    <div class="post-option photo-video">
+                        <i class="fas fa-photo-video"></i>
+                        <span>Foto/video</span>
+                    </div>
+                    <div class="post-option feeling">
+                        <i class="far fa-smile"></i>
+                        <span>Sentimiento/actividad</span>
+                    </div>
+                </div>
+            </div>
+
+                  <!-- Portfolio Section -->
+            <div class="portfolio-section">
+                <div class="section-header">
+                    <h2>Sobre Mí</h2>
+                </div>
+                <div class="post-text">
+                    <p>¡Hola! Soy un desarrollador web apasionado por crear experiencias digitales increíbles. Me especializo en frontend development con React, Vue.js y tecnologías modernas.</p>
+                    <p>En mi tiempo libre, me encanta aprender nuevas tecnologías, contribuir a proyectos de código abierto y compartir conocimientos con la comunidad.</p>
+                </div>
+            </div>
+
+            <!-- Skills Section -->
+            <div class="portfolio-section">
+                <div class="section-header">
+                    <h2>Habilidades</h2>
+                </div>
+                <div class="skills-list">
+                    <div class="skill-item">
+                        <i class="fab fa-html5"></i>
+                        <div class="skill-info">
+                            <h4>HTML5</h4>
+                            <p>Desarrollo de estructuras semánticas y accesibles</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-css3-alt"></i>
+                        <div class="skill-info">
+                            <h4>CSS3</h4>
+                            <p>Diseño responsive, animaciones y frameworks modernos</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-js"></i>
+                        <div class="skill-info">
+                            <h4>JavaScript</h4>
+                            <p>ES6+, frameworks modernos y desarrollo de aplicaciones</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-react"></i>
+                        <div class="skill-info">
+                            <h4>React</h4>
+                            <p>Desarrollo de componentes, hooks y aplicaciones SPA</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Projects Section -->
+            <div class="portfolio-section">
+                <div class="section-header">
+                    <h2>Proyectos Destacados</h2>
+                    <a href="#">Ver todos</a>
+                </div>
+                <div class="projects-list">
+                    <div class="project-item">
+                        <i class="fas fa-shopping-cart"></i>
+                        <div class="project-info">
+                            <h4>E-commerce React</h4>
+                            <p>Tienda online con carrito de compras y pasarela de pago</p>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <i class="fas fa-tasks"></i>
+                        <div class="project-info">
+                            <h4>App de Tareas</h4>
+                            <p>Aplicación de gestión de tareas con Vue.js y Firebase</p>
+                        </div>
+                    </div>
+                    <div class="project-item">
+                        <i class="fas fa-chart-line"></i>
+                        <div class="project-info">
+                            <h4>Dashboard Analytics</h4>
+                            <p>Panel de control con gráficos interactivos y datos en tiempo real</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sample Post -->
+            <div class="post">
+                <div class="post-header">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile">
+                    <div class="post-info">
+                        <h4>char</h4>
+                        <p>Ayer a las 18:30 <i class="fas fa-globe-americas"></i></p>
+                    </div>
+                </div>
+                <div class="post-content">
+                    <p class="post-text">¡Acabo de completar un nuevo proyecto! Es una aplicación web moderna construida con React y Node.js. Estoy muy emocionado de compartirla con ustedes pronto.</p>
+                    <img class="post-image" src="https://picsum.photos/600/400" alt="Post Image">
+                </div>
+                <div class="post-stats">
+                    <div class="likes">
+                        <i class="fas fa-thumbs-up"></i> 125
+                    </div>
+                    <div class="comments-shares">
+                        23 comentarios • 5 compartidos
+                    </div>
+                </div>
+                <div class="post-actions">
+                    <div class="post-action">
+                        <i class="far fa-thumbs-up"></i>
+                        <span>Me gusta</span>
+                    </div>
+                    <div class="post-action">
+                        <i class="far fa-comment"></i>
+                        <span>Comentar</span>
+                    </div>
+                    <div class="post-action">
+                        <i class="fas fa-share"></i>
+                        <span>Compartir</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+         <!-- Right Sidebar -->
+        <div class="right-sidebar">
+            <div class="contacts-header">
+                <h3>Contactos</h3>
+                <div>
+                    <i class="fas fa-video"></i>
+                    <i class="fas fa-search"></i>
+                    <i class="fas fa-ellipsis-h"></i>
+                </div>
+            </div>
+            <div class="contact">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Profile">
+                <span>María García</span>
+            </div>
+            <div class="contact">
+                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Profile">
+                <span>Carlos López</span>
+            </div>
+            <div class="contact">
+                <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Profile">
+                <span>Ana Martínez</span>
+            </div>
+            <div class="contact">
+                <img src="https://randomuser.me/api/portraits/men/55.jpg" alt="Profile">
+                <span>Juan Pérez</span>
+            </div>
+            <div class="contact">
+                <img src="https://randomuser.me/api/portraits/women/66.jpg" alt="Profile">
+                <span>Laura Rodríguez</span>
+            </div>
+            <div class="contact">
+                <img src="https://randomuser.me/api/portraits/men/77.jpg" alt="Profile">
+                <span>David Fernández</span>
+            </div>
+
+            <!-- Contact Info -->
+            <div class="portfolio-section">
+                <div class="section-header">
+                    <h2>Información de Contacto</h2>
+                </div>
+                <div class="skills-list">
+                    <div class="skill-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="skill-info">
+                            <h4>Email</h4>
+                            <p>tu.email@ejemplo.com</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-phone"></i>
+                        <div class="skill-info">
+                            <h4>Teléfono</h4>
+                            <p>+1 234 567 890</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div class="skill-info">
+                            <h4>Ubicación</h4>
+                            <p>Ciudad, País</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-linkedin"></i>
+                        <div class="skill-info">
+                            <h4>LinkedIn</h4>
+                            <p>linkedin.com/in/tunombre</p>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <i class="fab fa-github"></i>
+                        <div class="skill-info">
+                            <h4>GitHub</h4>
+                            <p>github.com/tunombre</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        // Simple JavaScript para interactividad básica
+        document.addEventListener('DOMContentLoaded', function() {
+            // Cambiar iconos activos en el header
+            const headerIcons = document.querySelectorAll('.header-icon');
+            headerIcons.forEach(icon => {
+                icon.addEventListener('click', function() {
+                    headerIcons.forEach(i => i.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+
+            // Efecto hover en stories
+            const stories = document.querySelectorAll('.story');
+            stories.forEach(story => {
+                story.addEventListener('mouseenter', function() {
+                    this.style.transform = 'scale(1.02)';
+                });
+                story.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+
+            // Simular "me gusta" en publicaciones
+            const likeButtons = document.querySelectorAll('.post-action:first-child');
+            likeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    if (icon.classList.contains('far')) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        this.style.color = '#1877f2';
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.add('far');
+                        this.style.color = '';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
